@@ -82,7 +82,7 @@ impl<T: Write> MultiBar<T> {
         MultiBar {
             state: Mutex::new(State {
                 lines: Vec::new(),
-                handle: handle,
+                handle,
                 nlines: 0,
             }),
             chan: unbounded(),
@@ -246,7 +246,7 @@ impl Write for Pipe {
         self.chan
             .send(WriteMsg {
                 // finish method emit empty string
-                done: s == "",
+                done: s.is_empty(),
                 level: self.level,
                 string: s,
             })
